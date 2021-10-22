@@ -38,6 +38,16 @@
 			font-weight: bold;
 			cursor: pointer;
 		}
+		#icon-reset {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			cursor: pointer;
+			height: 28px;
+			width: 28px;
+			margin-bottom: 10px;
+			margin-right: 7px;
+		}
 	</style>
 </head>
 
@@ -61,6 +71,15 @@
 		aria-hidden="true">
 		<path d="M0,0 L115,115 L250,250 L250,0 Z"></path>
 	</svg>
+	<svg width="80" height="80" viewBox="0 0 250 250"
+		style="fill:#fff; color:#151513; position: absolute; bottom: 0; border: 0; right: 0; transform: scale(1, -1);"
+		aria-hidden="true">
+		<path d="M0,0 L115,115 L250,250 L250,0 Z"></path>
+	</svg>
+
+	<img id="icon-reset" onclick="reset()" src="https://img.icons8.com/ios-filled/50/000000/recurring-appointment.png"/>
+
+
 	<a onclick="showHelp()" id="help-btn">?</a>
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 100%; height: 100%" id="cont">
 		<defs>

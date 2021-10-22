@@ -7,8 +7,17 @@ const svgns = "http://www.w3.org/2000/svg";
 let nodes = []
 let edges = []
 let pageRankValues = []
+let clickedCircle = null
 
-clickedCircle = null 
+function reset() {
+    nodes = []
+    edges = []
+    pageRankValues = []
+    clickedCircle = null
+    let container = document.getElementById('cont');
+    container.innerHTML = ""
+}
+
 function circleClicked(elem) {
     if(clickedCircle) { // Checking if another circle has already been clicked
         edges.push([clickedCircle.id,elem.id])
