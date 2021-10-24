@@ -7,48 +7,12 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Page Rank</title>
 	
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-		gtag('config', 'UA-119972196-1');
-	</script>
 	
 	<!-- sweet alert -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 	
-	<style>
-		body,
-		html {
-			margin: auto;
-			height: 100%;
-		}
-		#cont {
-			background-color: #efefef;
-			height: 100%;
-		}
-		#help-btn {
-  			transform: rotate(45deg);
-			position: absolute;
-			top: 0;
-			right: 0;
-			margin-right: 10px;
-			font-size: 40px;
-			font-weight: bold;
-			cursor: pointer;
-		}
-		#icon-reset {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			cursor: pointer;
-			height: 28px;
-			width: 28px;
-			margin-bottom: 10px;
-			margin-right: 7px;
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -89,40 +53,11 @@
 			</marker>
 		</defs>
 	</svg>
-	<style>
-		.github-corner:hover .octo-arm {
-			animation: octocat-wave 560ms ease-in-out
-		}
-		
-		@keyframes octocat-wave {
-			0%,
-			100% {
-				transform: rotate(0)
-			}
-			
-			20%,
-			60% {
-				transform: rotate(-25deg)
-			}
-			
-			40%,
-			80% {
-				transform: rotate(10deg)
-			}
-		}
-		
-		@media (max-width:500px) {
-			.github-corner:hover .octo-arm {
-				animation: none
-			}
-			
-			.github-corner .octo-arm {
-				animation: octocat-wave 560ms ease-in-out
-			}
-		}
-	</style>
 	<script src="script.js"></script>
 	<script src="help.js"></script>
+	<script>
+		showHelp()
+	</script>
 </body>
 
 </html>
