@@ -36,7 +36,6 @@ function recalculateNodesWeight() {
     for(let i=0; i<nodes.length; i++) {
         let nodeElement = nodes[i]
         let pageRankValue = getPageRankOfNode(nodeElement.id)
-        console.log(nodeElement.id, pageRankValue)
         nodeElement.setAttribute('r', pageRankValue*SCALE);
     }
 }
@@ -90,21 +89,40 @@ function drawCircle(x, y) {
     circle.addEventListener("click", (event) => {
         event.cancelBubble = true
         event.stopPropagation()
+        console.log("Cliked " + circle.id)
         circleClicked(circle)
     })
     container.appendChild(circle);
     nodes.push(circle)
     recalculateNodesWeight()
 }
+
 function drawLine(a, b) {
     let container = document.getElementById('cont');
+    let id = 'path' + edges.length
+    let line = buildLine(a, b, id)
+    container.insertBefore(line, container.firstChild);
+    drawArrow(id)
+    recalculateNodesWeight()
+}
+
+function drawArrow(id) {
+    let xlinkNS = 'http://www.w3.org/1999/xlink';
+    let container = document.getElementById("arrows");
+    let arrow = document.createElementNS(svgns, 'textPath');
+    arrow.setAttributeNS(xlinkNS, 'href', '#' + id);
+    arrow.setAttributeNS(null, 'startOffset', '30%');
+    arrow.innerHTML = "➤"
+    container.appendChild(arrow)
+}
+
+function buildLine(a, b, id) {
     let line = document.createElementNS(svgns, 'line');
     line.setAttributeNS(null, 'x1', a.cx.baseVal.value);
     line.setAttributeNS(null, 'y1', a.cy.baseVal.value);
     line.setAttributeNS(null, 'x2', b.cx.baseVal.value);
     line.setAttributeNS(null, 'y2', b.cy.baseVal.value);
-    line.setAttributeNS(null, 'marker-end', "url(#arrowhead)");
-    line.setAttributeNS(null, 'style', 'stroke: black; stroke-width: 3px; marker-end="url(#arrowhead)"' );
-    container.appendChild(line);
-    recalculateNodesWeight()
+    line.setAttributeNS(null, 'id', id);
+    line.setAttributeNS(null, 'style', 'stroke: black; stroke-width: 3px');
+    return line
 }
