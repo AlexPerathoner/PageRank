@@ -62,3 +62,11 @@ textPath {
     font-size: 20px;
     dominant-baseline: central;
 }
+
+#slider-scale {
+    position: absolute;
+    top: 10px;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px
+}

@@ -1,6 +1,6 @@
 const canvas = document.getElementById('cont');
-canvas.addEventListener("click", (e => {drawCircle(e.pageX, e.pageY)}))
-const SCALE = 100
+const slider = document.getElementById('slider-scale')
+let SCALE = 100
 const DAMPING_FACTOR = 0.85
 const svgns = "http://www.w3.org/2000/svg";
 
@@ -10,6 +10,11 @@ let pageRankValues = []
 let clickedCircle = null
 
 setInterval(recalculateNodesWeight, 1000);
+canvas.addEventListener("click", (e => {drawCircle(e.pageX, e.pageY)}))
+slider.oninput = function() {
+    SCALE=this.value
+    recalculateNodesWeight()
+}
 
 function resetPageRankValue() {
     for(let i=0; i<nodes.length; i++) {
