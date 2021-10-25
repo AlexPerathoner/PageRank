@@ -9,13 +9,12 @@ let edges = []
 let pageRankValues = []
 let clickedCircle = null
 
-function reset() {
-    nodes = []
-    edges = []
-    pageRankValues = []
-    clickedCircle = null
-    let container = document.getElementById('cont');
-    container.innerHTML = ""
+setInterval(recalculateNodesWeight, 1000);
+
+function resetPageRankValue() {
+    for(let i=0; i<nodes.length; i++) {
+        pageRankValues[nodes[i].id] = 1/nodes.length
+    }
 }
 
 function circleClicked(elem) {
@@ -28,29 +27,21 @@ function circleClicked(elem) {
     }
 }
 
-
 function recalculateNodesWeight() {
-    for(let i=0; i<nodes.length; i++) {
-        pageRankValues[nodes[i].id] = null
-    }
-    for(let i=0; i<nodes.length; i++) {
-        let nodeElement = nodes[i]
+    nodes.forEach(nodeElement => {
         let pageRankValue = getPageRankOfNode(nodeElement.id)
+        pageRankValues[nodeElement.id] = pageRankValue
         nodeElement.setAttribute('r', pageRankValue*SCALE);
-    }
+    })
+    console.log(pageRankValues)
 }
 
 function getPageRankOfNode(elemId) {
-    let pageRankValue = pageRankValues[elemId]
-    if(!pageRankValue) {
-        pageRankValue = 1 / nodes.length // Setting initial distribution
-        getNodesLinkingTo(elemId).forEach(node => { // Implementation of the Simplified algorithm (https://en.wikipedia.org/wiki/PageRank#Simplified_algorithm)
-            pageRankValue += getPageRankOfNode(node) / getNumberOfLinksFromNode(node)
-        })
-        pageRankValues[elemId] = pageRankValue
-    }
-    
-    return pageRankValue
+    let accumulator = 0
+    getNodesLinkingTo(elemId).forEach(nodeId => {
+        accumulator += pageRankValues[nodeId] / getNumberOfLinksFromNode(nodeId)
+    })
+    return (1 - DAMPING_FACTOR) / nodes.length + accumulator * DAMPING_FACTOR
 }
 
 function getNodesLinkingTo(elemId) {
@@ -74,7 +65,6 @@ function getNumberOfLinksFromNode(elemId) {
 }
 
 
-
 // DRAWING
 
 function drawCircle(x, y) {
@@ -94,7 +84,7 @@ function drawCircle(x, y) {
     })
     container.appendChild(circle);
     nodes.push(circle)
-    recalculateNodesWeight()
+    resetPageRankValue()
 }
 
 function drawLine(a, b) {
@@ -103,7 +93,7 @@ function drawLine(a, b) {
     let line = buildLine(a, b, id)
     container.insertBefore(line, container.firstChild);
     drawArrow(id)
-    recalculateNodesWeight()
+    resetPageRankValue()
 }
 
 function drawArrow(id) {
@@ -125,4 +115,13 @@ function buildLine(a, b, id) {
     line.setAttributeNS(null, 'id', id);
     line.setAttributeNS(null, 'style', 'stroke: black; stroke-width: 3px');
     return line
+}
+
+function reset() {
+    nodes = []
+    edges = []
+    pageRankValues = []
+    clickedCircle = null
+    let container = document.getElementById('cont');
+    container.innerHTML = ""
 }
